@@ -1,23 +1,21 @@
 import * as React from "react";
-import { View, Text, Button, StyleSheet, FlatList,TextInput, Image } from "react-native";
+import {
+  View,
+  Text,
+  Button,
+  StyleSheet,
+  FlatList,
+  TextInput,
+  Image,
+} from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import {useState,useEffect(() => {
-  first
-
-  return () => {
-    second
-  }
-}, [third])
-}
-
+import { useState, useEffect } from "react";
 import { customers } from "./customers";
-
 
 function HomeScreen({ navigation }) {
   return (
     <>
-
       <View>
         <CustomerList navigation={navigation} />
       </View>
@@ -25,49 +23,55 @@ function HomeScreen({ navigation }) {
   );
 }
 
-
-
 function DetailsScreen({ route, navigation }) {
-  const { gender, name, location, email, phone,picture } = route.params;
-  
+  const { gender, name, location, email, phone, picture } = route.params;
+  const [comment, setComment] = useState("");
 
   return (
     <>
-
-      <View style={styles.contactList}>
+      <View style={styles.contact}>
         <View>
           <Image
-        source={{
-          uri: picture.large, width:200,height:200
-        }}
-      />
-          <Text>Personalia : {name.title} {name.first} {name.last}</Text>
-          <Text>Email address :{email}</Text>
-          <Text>Located in : {location.country} {location.city}</Text>
-        
+            source={{
+              uri: picture.large,
+              width: 200,
+              height: 200,
+            }}
+          />
+          <Text>
+            Personalia : {name.title} {name.first} {name.last}
+          </Text>
+          <Text>Email address : {email}</Text>
+          <Text>
+            Located in : {location.country}, {location.city}
+          </Text>
+          <Text>Comments : {comment} </Text>
         </View>
 
         <View>
           <Text>Write your comment</Text>
           <TextInput
-            style={{backgroundColor:'lightgray'}}
-            placeholder="blah"
+            style={{ backgroundColor: "lightgray" }}
+            placeholder="Type your comment here ..."
             multiline={true}
             numberOfLines={4}
+            enablesReturnKeyAutomatically={true}
+            onKeyPress={(e) => setComment(e.nativeEvent.text)}
           />
-         </View>
-        
+        </View>
       </View>
     </>
   );
 }
 const CustomerList = ({ navigation }) => {
+  const [user, setUser] = useState(customers);
+
   return (
     <View>
       <FlatList
         keyExtractor={(item, index) => index.toString()}
         contentContainerStyle={styles.contactList}
-        data={customers}
+        data={user}
         renderItem={({ item }) => (
           <Button
             title={item.name.first}
@@ -82,6 +86,7 @@ const CustomerList = ({ navigation }) => {
 const Stack = createNativeStackNavigator();
 
 function App() {
+
   return (
     <NavigationContainer style={styles.container}>
       <Stack.Navigator initialRouteName="Home">
@@ -98,18 +103,7 @@ const styles = StyleSheet.create({
     padding: 24,
     backgroundColor: "#eaeaea",
   },
-  title: {
-    marginTop: 0,
-    paddingVertical: 10,
-    borderWidth: 4,
-    borderColor: "#20232a",
-    borderRadius: 6,
-    backgroundColor: "#61dafb",
-    color: "#20232a",
-    textAlign: "center",
-    fontSize: 30,
-    fontWeight: "bold",
-  },
+
   contactList: {
     justifyContent: "center",
     alignItems: "center",
@@ -123,6 +117,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 30,
     fontWeight: "bold",
+    minHeight: "100%",
   },
   contact: {
     padding: 10,
@@ -132,6 +127,7 @@ const styles = StyleSheet.create({
 
     fontSize: 50,
     color: "white",
+    minHeight: "100%",
   },
 });
 
