@@ -4,5 +4,10 @@ Simple contacts-app made with React-Native as a one day mob-programming project 
 
 UI more or less done, needs some more functionality before being completed.
 
-*/* *Insert picture/*
-<img src="./assets/screenshots/gif.gif" width="128"/>
+
+<img src="./assets/screenshots/gif.gif" width="200"/>
+
+<img src="./assets/screenshots/img.png" width="200"/>
+
+<img src="./assets/screenshots/img2.png" width="200"/>
+
