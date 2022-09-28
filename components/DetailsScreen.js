@@ -236,7 +236,7 @@ const styles = StyleSheet.create({
     margin: 10,
     backgroundColor: "rgba(52, 52, 52, 0.8)",
     opacity: 0.9,
-    marginBottom: "20%",
+    marginBottom: "35%",
   },
 });
 
