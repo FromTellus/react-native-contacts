@@ -8,7 +8,7 @@ export default function DetailsScreen({ route, navigation }) {
     return (
       <>
         <View style={styles.contact}>
-          <View>
+          <View style={styles.contactInformation}>
             <Image
               source={{
                 uri: picture.large,
@@ -45,12 +45,22 @@ export default function DetailsScreen({ route, navigation }) {
 
   const styles = StyleSheet.create({
     contact: {
+      alignItems: "center",
       padding: 10,
       borderColor: "black",
       borderRadius: 6,
-      backgroundColor: "#61dafb",
+      backgroundColor: "#DBE8D8",
       fontSize: 50,
       color: "white",
       minHeight: "100%",
     },
+    contactInformation: {
+        alignItems: "center",
+        padding: 10,
+        borderColor: "black",
+        borderRadius: 6,
+        fontSize: 50,
+        color: "white",
+        minHeight: "100%",
+      },
   });
