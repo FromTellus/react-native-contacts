@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
     fontSize: 50,
     color: "white",
     minHeight: "100%",
-    paddingTop: 10,
+    paddingTop: "15%",
   },
   contactName: {
     fontSize: 30,
