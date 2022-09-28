@@ -7,7 +7,7 @@ UI more or less done, needs some more functionality before being completed.
 
 <img src="./assets/screenshots/gif.gif" width="200"/>
 
-<img src="./assets/screenshots/img.png" width="200"/>
+<img src="./assets/screenshots/img.PNG" width="200"/>
 
-<img src="./assets/screenshots/img2.png" width="200"/>
+<img src="./assets/screenshots/img2.PNG" width="200"/>
 
