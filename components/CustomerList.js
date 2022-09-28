@@ -7,17 +7,20 @@ export default CustomerList = ({navigation}) => {
 
   return (
     <View>
+      <Text style={styles.heading}>Contacts</Text>
       <FlatList
         keyExtractor={(item, index) => index.toString()}
         contentContainerStyle={styles.contactList}
-        data={user}
+        data={user.sort((a, b) => a.name.first.localeCompare(b.name.first))}
         renderItem={({item}) => (
+          <View style={styles.contactItem}>
           <Text
             onPress={() => navigation.navigate('Details', item)}
-            style={styles.contactItem}
+            style={styles.contactInfo}
           >
-            {item.name.first} Phone : {item.phone}
+            {item.name.first}
           </Text>
+          </View>
         )}
       />
     </View>
@@ -30,7 +33,7 @@ const styles = StyleSheet.create({
     alignItems: 'left',
     marginTop: 0,
     paddingVertical: 10,
-    backgroundColor: 'white',
+    backgroundColor: 'black',
     color: '#20232a',
     textAlign: 'center',
     fontSize: 30,
@@ -38,13 +41,24 @@ const styles = StyleSheet.create({
     minHeight: '100%',
   },
   contactItem: {
-    fontSize: 20,
+
+    color: "white",
+    minWidth: '100%',
+    backgroundColor: 'black',
+    borderBottomWidth: 1,
+    borderBottomColor: 'grey',
+    borderStyle: 'solid',
+    borderRadius: 0.5,
+    
+  },
+  contactInfo: {
+    fontSize: 15,
     padding: 5,
     margin: 5,
-    borderWidth: 2,
-    borderColor: 'black',
-    borderRadius: 6,
-    minWidth: '100%',
-    backgroundColor: '#DBE8D8',
+    color:"white",
   },
+  heading : {
+    fontSize: 50,
+    color: "white",
+  }
 });
