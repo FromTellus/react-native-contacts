@@ -23,12 +23,6 @@ export default CustomerList = ({ navigation }) => {
   };
 
   const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      padding: 24,
-      backgroundColor: "#eaeaea",
-    },
-  
     contactList: {
       justifyContent: "center",
       alignItems: "center",
@@ -42,16 +36,6 @@ export default CustomerList = ({ navigation }) => {
       textAlign: "center",
       fontSize: 30,
       fontWeight: "bold",
-      minHeight: "100%",
-    },
-    contact: {
-      padding: 10,
-      borderColor: "black",
-      borderRadius: 6,
-      backgroundColor: "#61dafb",
-  
-      fontSize: 50,
-      color: "white",
       minHeight: "100%",
     },
   });
