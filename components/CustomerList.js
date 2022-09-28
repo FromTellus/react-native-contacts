@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
     padding: 5,
     margin: 5,
     color:"white",
+    fontWeight: 'bold',
   },
   heading : {
     fontSize: 50,
