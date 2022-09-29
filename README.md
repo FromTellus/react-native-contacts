@@ -1,4 +1,4 @@
-# JavaScript React Native - Contact List
+# JavaScript React Native - Contact Book
 
 Simple contacts-app made with React-Native as a one day mob-programming project during a React-Native lecture week. Contains basic testing with react-native-tesing library and Jest.
 
@@ -7,3 +7,6 @@ UI more or less done, needs some more functionality before being completed.
 
 <img src="./assets/screenshots/gif.gif" width="400"/> <img src="./assets/screenshots/img.PNG" width="200"/> <img src="./assets/screenshots/img2.PNG" width="200"/>
 
+Store the list of users for the contact application in the Firestore database.
+Create a register and login screen and functionality using Firebase authentication
+Get pictures for each user from the https://randomuser.me/ API

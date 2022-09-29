@@ -1,25 +1,61 @@
-import {View, FlatList, Button, StyleSheet, Text} from 'react-native';
-import {useState} from 'react';
-import {customers} from '../customers';
+import { View, FlatList, Button, StyleSheet, Text } from "react-native";
+import { useEffect, useState } from "react";
+import { db, auth } from "../firebase";
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { useIsFocused } from "@react-navigation/native";
 
-export default CustomerList = ({navigation}) => {
-  const [user, setUser] = useState(customers);
 
+export default CustomerList = ({ navigation }) => {
+  const isFocused = useIsFocused();
+  const userData = auth.currentUser;
+  const contacts = [];
+  if(userData) {
+    console.log(userData, "this is 123");
+  }
+
+  useEffect(() => {
+    const getContacts = async () => {
+      const q = query(collection(db, "users", userData.email, "contacts"));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        contacts.push(doc.data());
+        console.log(contacts, "this is contacts in useEffect");
+      });
+    }; 
+  
+    getContacts();
+  }, [isFocused]);
   return (
     <View>
       <Text style={styles.heading}>Contacts</Text>
+      
+      <View style={styles.addBtn}>
+      <Button  style={styles.addBtn}
+        raised
+        onPress={() => navigation.navigate('HomeScreen')}
+        // onPress={register}
+        title="HomeScreen"
+      />
+      
+      <Button  style={styles.addBtn}
+        raised
+        onPress={() => navigation.navigate('AddContact')}
+        // onPress={register}
+        title="Add Contact"
+      />
+      </View>
       <FlatList
         keyExtractor={(item, index) => index.toString()}
         contentContainerStyle={styles.contactList}
-        data={user.sort((a, b) => a.name.first.localeCompare(b.name.first))}
-        renderItem={({item}) => (
+        data={contacts.sort((a, b) => a.name.localeCompare(b.name))}
+        renderItem={({ item }) => (
           <View style={styles.contactItem}>
-          <Text
-            onPress={() => navigation.navigate('Details', item)}
-            style={styles.contactInfo}
-          >
-            {item.name.first}
-          </Text>
+            <Text
+              onPress={() => navigation.navigate("Details", item)}
+              style={styles.contactInfo}
+            >
+              {item.name}
+            </Text>
           </View>
         )}
       />
@@ -28,38 +64,40 @@ export default CustomerList = ({navigation}) => {
 };
 
 const styles = StyleSheet.create({
+  addBtn: {
+    color: "white",
+    marginLeft: "-75%",
+  },
   contactList: {
-    justifyContent: 'center',
-    alignItems: 'left',
-    marginTop: 0,
+    justifyContent: "center",
+    alignItems: "left",
+    marginTop: "-25%",
     paddingVertical: 10,
-    backgroundColor: 'black',
-    color: '#20232a',
-    textAlign: 'center',
+    backgroundColor: "black",
+    color: "#20232a",
+    textAlign: "center",
     fontSize: 30,
-    fontWeight: 'bold',
-    minHeight: '100%',
+    fontWeight: "bold",
+    minHeight: "100%",
   },
   contactItem: {
-
     color: "white",
-    minWidth: '100%',
-    backgroundColor: 'black',
+    minWidth: "100%",
+    backgroundColor: "black",
     borderBottomWidth: 1,
-    borderBottomColor: 'grey',
-    borderStyle: 'solid',
+    borderBottomColor: "grey",
+    borderStyle: "solid",
     borderRadius: 0.5,
-    
   },
   contactInfo: {
     fontSize: 15,
     padding: 5,
     margin: 5,
-    color:"white",
-    fontWeight: 'bold',
+    color: "white",
+    fontWeight: "bold",
   },
-  heading : {
+  heading: {
     fontSize: 50,
     color: "white",
-  }
+  },
 });

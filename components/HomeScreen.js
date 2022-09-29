@@ -1,12 +1,18 @@
-import { View } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import CustomerList from "./CustomerList";
+import RegisterScreen from "./RegisterScreen";
+import LoginOrRegisterBtns from "./loginOrRegisterBtns";
+import AddContact from "./AddContact";
+
 
 export default function HomeScreen({ navigation }) {
     return (
       <>
         <View>
-          <CustomerList navigation={navigation} />
+          <LoginOrRegisterBtns navigation={navigation}/>
         </View>
       </>
     );
   }
+
+

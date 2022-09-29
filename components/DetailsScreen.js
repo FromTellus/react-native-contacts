@@ -31,20 +31,20 @@ export default function DetailsScreen({ route, navigation }) {
         <View style={styles.contact}>
           <View style={styles.contactInformation}>
             <TouchableOpacity>
-              <Image
+ {             <Image
                 style={styles.contactImage}
                 source={{
-                  uri: picture.large,
+                  uri: picture,
                   width: 200,
                   height: 200,
                 }}
-              />
+              /> }
             </TouchableOpacity>
             <Text style={styles.contactName}>
-              {name.title} {name.first} {name.last}
+             {name}
             </Text>
             <Text style={styles.contactText}>
-              {location.country}, {location.city}
+              {/* {location.country}, {location.city} */}
             </Text>
             <View style={styles.contactSnippetContainer}>
               <TouchableOpacity>
