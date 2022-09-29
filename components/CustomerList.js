@@ -9,9 +9,7 @@ export default CustomerList = ({ navigation }) => {
   const isFocused = useIsFocused();
   const userData = auth.currentUser;
   const contacts = [];
-  if(userData) {
-    console.log(userData, "this is 123");
-  }
+
 
   useEffect(() => {
     const getContacts = async () => {
@@ -19,7 +17,7 @@ export default CustomerList = ({ navigation }) => {
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
         contacts.push(doc.data());
-        console.log(contacts, "this is contacts in useEffect");
+
       });
     }; 
   
@@ -33,14 +31,12 @@ export default CustomerList = ({ navigation }) => {
       <Button  style={styles.addBtn}
         raised
         onPress={() => navigation.navigate('HomeScreen')}
-        // onPress={register}
         title="HomeScreen"
       />
       
       <Button  style={styles.addBtn}
         raised
         onPress={() => navigation.navigate('AddContact')}
-        // onPress={register}
         title="Add Contact"
       />
       </View>

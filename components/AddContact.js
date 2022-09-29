@@ -14,22 +14,37 @@ import {
   import {auth} from "../firebase";
   import {doc, setDoc} from "firebase/firestore";
 
+  const getRandomUserPicture = async () => {
+    let response = await fetch(
+        "https://randomuser.me/api/"
+    );
+    let json = await response.json();
+    return json.results[0].picture.large;
+  }
+/* console.log( await getRandomUserPicture(), "this is random user picture");
+ */
   
   
   function AddContact ({ route, navigation }) {
+    getRandomUserPicture();
     const user = auth.currentUser;
     const [name, setName] = useState();
     const [email, setEmail] = useState();
     const [phone,setPhone] = useState();
+    const [picture, setPicture] = useState();
+
     const data = {
         name: name,
         email: email,
         phone: phone,
-        picture: "https://randomuser.me/api/portraits/men/34.jpg",
+        picture: picture,
     }
 
      async function addContact() {
         try {
+            const url = await getRandomUserPicture();
+            setPicture(url);
+            console.log(url, "now1");
             await setDoc(doc(db, "users", user.email, "contacts", name), data);
             console.log("Document written with ID: ", user.email);
             navigation.navigate('Contacts');
@@ -37,7 +52,10 @@ import {
             console.error("Error adding document: ", e);
           }
         } 
-
+        useEffect(async () => {
+            const url = await getRandomUserPicture();
+            setPicture(url);
+        }, []);
   
     return (
         <>
