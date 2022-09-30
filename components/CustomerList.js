@@ -1,8 +1,8 @@
 import { View, FlatList, Button, StyleSheet, Text } from "react-native";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { db, auth } from "../firebase";
 import { collection, query, where, getDocs } from "firebase/firestore";
-import { useIsFocused } from "@react-navigation/native";
+import { useIsFocused, useFocusEffect } from "@react-navigation/native";
 
 
 export default CustomerList = ({ navigation }) => {
@@ -11,7 +11,7 @@ export default CustomerList = ({ navigation }) => {
   const contacts = [];
 
 
-  useEffect(() => {
+/*   useEffect(() => {
     const getContacts = async () => {
       const q = query(collection(db, "users", userData.email, "contacts"));
       const querySnapshot = await getDocs(q);
@@ -22,7 +22,20 @@ export default CustomerList = ({ navigation }) => {
     }; 
   
     getContacts();
-  }, [isFocused]);
+  }, [isFocused]); */
+
+  const getContacts = async () => {
+    const q = query(collection(db, "users", userData.email, "contacts"));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      contacts.push(doc.data());
+
+    });
+  }; 
+
+  getContacts();
+
+
   return (
     <View>
       <Text style={styles.heading}>Contacts</Text>

@@ -58,69 +58,87 @@ import {
         }, []);
   
     return (
-        <>
+        
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-  {         <ScrollView style={styles.contact}>
-        <Text style={styles.heading}>
-                Add Contact
-              </Text>
-          
+  {         <ScrollView>
+            <Text>
+              Add Contact
+            </Text>
+            <View style={styles.optionsContainer}>
+              <Text style={styles.notesHeading}>Name</Text>
               <TouchableOpacity>
-
                 <TextInput
-                placeholder="Name"
                 style={styles.TextInput}
-                onChangeText={(text) => setName(text)}
+                  placeholder="Name"
+
+                  onChangeText={(text) => setName(text)}
                 ></TextInput>
-                <TextInput
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.optionsContainer}>
+            <Text style={styles.notesHeading}>Email</Text>
+              <TouchableOpacity>
+              <TextInput
                 placeholder="Email"
                 style={styles.TextInput}
                 onChangeText={(text) => setEmail(text)}
-                ></TextInput>
+              ></TextInput>
+            </TouchableOpacity>
+          </View>
+          
+          <View style={styles.optionsContainer}>
+          <Text style={styles.notesHeading}>Phone</Text>
+              <TouchableOpacity>
                 <TextInput
-                placerholder="Phone"
-                style={styles.TextInput}
-                onChangeText={(text) => setPhone(text)}
+                  placerholder="Phone"
+                  style={styles.TextInput}
+                  onChangeText={(text) => setPhone(text)}
                 ></TextInput>
-                <Button
-                title="Add contact"
-                onPress={() => addContact()}
-                ></Button>
-
               </TouchableOpacity>
-      
+            </View>
+            
+            <View style={styles.optionsContainer}>
               
-          </ScrollView>}
-        </TouchableWithoutFeedback>
-     </>
+              <TouchableOpacity>
+                <Button
+                  title="Add contact"
+                  onPress={() => addContact()}
+                ></Button>
+              </TouchableOpacity>
+            </View>
+          </ScrollView>
+  }</TouchableWithoutFeedback>
     );
   }
 
 
+
+
   const styles = StyleSheet.create({
-    heading: {
-        color: "white",
-        backgroundColor: "black",
+   
+  
+    optionsContainer: {
+      borderRadius: 7,
+      minWidth: "90%",
+      minHeight: "5%",
+      padding: 10,
+      margin: 10,
+      backgroundColor: "rgba(52, 52, 52, 0.8)",
+      opacity: 0.9,
     },
     TextInput: {
-        height: 40,
-        margin: 12,
-        borderWidth: 1,
-        color: "black",
-        backgroundColor: "white",
-        },
-   
-    contact: {
-      backgroundColor: "black",
+      minWidth: "100%",
+      minHeight: "100%",
+      color: "white",
     },
-    contactName: {
-        backgroundColor: "white",
+  
+    notesHeading: {
+      color: "white",
+      fontSize: 14,
     },
-
-    contactInformation: {
-        backgroundColor: "white",
-    },
-
   });
+  
+  
   
   export default AddContact;
