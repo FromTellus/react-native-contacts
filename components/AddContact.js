@@ -21,9 +21,7 @@ import {
     let json = await response.json();
     return json.results[0].picture.large;
   }
-/* console.log( await getRandomUserPicture(), "this is random user picture");
- */
-  
+
   
   function AddContact ({ route, navigation }) {
     getRandomUserPicture();
@@ -52,9 +50,13 @@ import {
             console.error("Error adding document: ", e);
           }
         } 
-        useEffect(async () => {
-            const url = await getRandomUserPicture();
-            setPicture(url);
+        useEffect(() => {
+            const fetchData = async () => {
+              const url = await getRandomUserPicture();
+              setPicture(url);
+              console.log(url, "now");
+            }
+            fetchData();
         }, []);
   
     return (

@@ -1,6 +1,6 @@
 import { auth } from "../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   View,
   KeyboardAvoidingView,
