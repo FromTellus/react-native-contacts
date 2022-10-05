@@ -22,6 +22,9 @@ import {
     return json.results[0].picture.large;
   }
 
+
+
+
   
   function AddContact ({ route, navigation }) {
     getRandomUserPicture();
