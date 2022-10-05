@@ -1,70 +1,72 @@
-import { View, FlatList, Button, StyleSheet, Text, TouchableOpacity } from "react-native";
+import {
+  View,
+  FlatList,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  SafeAreaView,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import { db, auth } from "../firebase";
-import { collection, query, where, getDocs } from "firebase/firestore";
-import { useIsFocused, useFocusEffect } from "@react-navigation/native";
-
+import { collection, query, getDocs } from "firebase/firestore";
+import { useIsFocused} from "@react-navigation/native";
 
 export default CustomerList = ({ navigation }) => {
   const isFocused = useIsFocused();
   const userData = auth.currentUser;
-  const contacts = [];
-
+  const [contacts, SetContacts] = useState([]);
+  console.log(contacts);
 
   useEffect(() => {
     const getContacts = async () => {
       const q = query(collection(db, "users", userData.email, "contacts"));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
-        contacts.push(doc.data());
-
+          if (contacts.some((contact) => contact.email === doc.data().email)) {
+              return;
+          } else {
+              SetContacts((contacts) => [...contacts, doc.data()]);
+          }
       });
-    }; 
-  
+    };
     getContacts();
   }, [isFocused]);
 
-
-  viewabilityConfig = {
-    viewAreaCoveragePercentThreshold: 0,
-    waitForInteraction: false, //setting this false, alone did not work for me
-};
-
   return (
-    
     <View>
       <View style={styles.headingContainer}>
-      <Text style={styles.heading}>Contacts</Text>
-      <TouchableOpacity 
-      onPress={() => navigation.navigate('AddContact')}
-
-      style={styles.addBtn}>
-      <Text style={styles.text}>+</Text>
-      </TouchableOpacity>
+        <Text style={styles.heading}>Contacts</Text>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("AddContact")}
+          style={styles.addBtn}>
+          <Text style={styles.text}>+</Text>
+        </TouchableOpacity>
       </View>
-      <View style={styles.addBtn}>
-      
-    
-      </View>
-      <View style={styles.listContainer}>
-      <FlatList
-      extraData={contacts}
-      style={styles.list}
-      viewabilityConfig={this.viewabilityConfig}
-        keyExtractor={(item, index) => index.toString()}
-        contentContainerStyle={styles.contactList}
-        data={contacts.sort((a, b) => a.name.localeCompare(b.name))}
-        renderItem={({ item, index }) => (
-          <View style={styles.contactItem}>
-            <Text
-              onPress={() => navigation.navigate("Details", item)}
-              style={styles.contactInfo}
-            >
-              {item.name}
+      <View style={styles.addBtn}></View>
+      <View>
+        <SafeAreaView style={styles.listContainer}>
+          <FlatList
+            extraData={contacts}
+            style={styles.list}
+            keyExtractor={(item, index) => index.toString()}
+            contentContainerStyle={styles.contactList}
+            data={contacts.sort((a, b) => a.name.localeCompare(b.name))}
+            renderItem={({ item, index }) => (
+              <View style={styles.contactItem}>
+                <Text
+                  onPress={() => navigation.navigate("Details", item)}
+                  style={styles.contactInfo}>
+                  {item.name}
+                </Text>
+              </View>
+            )}
+          />
+          <View>
+            <Text style={styles.footer}>
+              You have {contacts.length} contacts
             </Text>
           </View>
-        )}
-      />
+        </SafeAreaView>
       </View>
     </View>
   );
@@ -75,7 +77,6 @@ const styles = StyleSheet.create({
     color: "white",
     marginLeft: "-75%",
     fontSize: 200,
-
   },
   contactList: {
     justifyContent: "center",
@@ -111,7 +112,6 @@ const styles = StyleSheet.create({
     color: "white",
   },
   headingContainer: {
-
     backgroundColor: "black",
     color: "white",
     padding: 10,
@@ -124,12 +124,18 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 25,
     color: "#007AFF",
- },
- list : {
-  marginTop: 10,
-  marginBottom: 25,
   },
-/*   listContainer : {
-    marginTop: 20,
-  } */
+  list: {
+    paddingTop: 100,
+  },
+  listContainer: {
+    minHeight: 600,
+    flex: 1,
+  },
+  footer: {
+    color: "white",
+    fontSize: 15,
+    textAlign: "center",
+    marginTop: 10,
+  },
 });
