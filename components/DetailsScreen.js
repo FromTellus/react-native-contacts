@@ -10,12 +10,54 @@ import {
   ScrollView,
 } from "react-native";
 import { useEffect, useState } from "react";
+import Communications from "react-native-communications";
 
 export default function DetailsScreen({ route, navigation }) {
   const { name, location, email, phone, picture } = route.params;
   const [comment, setComment] = useState("");
   const [text, setText] = useState("");
 
+  const dialCall = (contactPhone) => {
+    Communications.phonecall(phone, true);
+  }
+  const sendEmail = () => {
+ 
+    /* Mail: email(to, cc, bcc, subject, body) */
+    Communications.email(
+      [
+        email,
+      ],
+      null,
+      null,
+      null,
+      null,
+    );
+  }
+
+  const shareContact = () => {
+ 
+    /* Mail: email(to, cc, bcc, subject, body) */
+    Communications.email(
+      [
+        email,
+      ],
+      null,
+      null,
+      "Contact Info for " + name,
+      "name " + name + " "
+      +
+      "email " + email + " "
+      + 
+      "phone " + phone + " "
+      + 
+      "picture " + picture,
+    );
+  }
+
+  const sendSMS = () => {
+    Communications.text(phone);
+  }
+  
   function handleComment() {
     setComment("");
   }
@@ -47,13 +89,13 @@ export default function DetailsScreen({ route, navigation }) {
               {/* {location.country}, {location.city} */}
             </Text>
             <View style={styles.contactSnippetContainer}>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => dialCall()}>
                 <Text style={styles.contactPhoneLabel}>mobile</Text>
                 <Text style={styles.contactPhone}>{phone}</Text>
               </TouchableOpacity>
             </View>
             <View style={styles.contactSnippetContainer}>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => sendEmail()}>
                 <Text style={styles.contactPhone}>{email}</Text>
               </TouchableOpacity>
             </View>
@@ -76,11 +118,15 @@ export default function DetailsScreen({ route, navigation }) {
               </TouchableOpacity>
             </View>
             <View style={styles.optionsListContainer}>
-              <TouchableOpacity style={styles.options}>
+              <TouchableOpacity 
+              onPress={() => sendSMS()}
+              style={styles.options}>
                 <Text style={styles.optionsText}>Send message</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.options}>
-                <Text style={styles.optionsText}>Share contact</Text>
+                <Text 
+                onPress={() => shareContact()}
+                style={styles.optionsText}>Share contact</Text>
               </TouchableOpacity>
               <TouchableOpacity>
                 <Text style={styles.optionsText}>Favorite</Text>

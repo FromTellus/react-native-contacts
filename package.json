@@ -20,6 +20,7 @@
     "jest-expo": "^46.0.1",
     "react": "18.0.0",
     "react-native": "0.69.6",
+    "react-native-communications": "^2.2.1",
     "react-test-renderer": "^18.0.0"
   },
   "devDependencies": {
