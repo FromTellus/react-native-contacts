@@ -22,10 +22,6 @@ import {
     return json.results[0].picture.large;
   }
 
-
-
-
-  
   function AddContact ({ route, navigation }) {
     getRandomUserPicture();
     const user = auth.currentUser;
@@ -143,7 +139,7 @@ import {
       fontSize: 14,
     },
   });
-  
+
   
   
   export default AddContact;
