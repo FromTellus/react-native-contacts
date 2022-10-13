@@ -1,7 +1,7 @@
 # JavaScript React Native - Contact Book
 
-Simple contacts-app made with React-Native as a one day mob-programming project during a React-Native lecture week. 
-Uses a authentication service and database from Firebase to make the contacts cloud-based instead of local.
+Uses a authentication service and database from Firebase to store the contacts in the cloud instead of local.
+
 Contains basic unit and component testing with react-native-tesing library and Jest.
 
 UI more or less done, needs some more functionality before being completed.
